@@ -37,7 +37,14 @@ module.exports = (sequelize, DataTypes) => {
       details: DataTypes.STRING,
       duration: DataTypes.DATE,
       offer_price: DataTypes.INTEGER,
-      status: DataTypes.ENUM,
+      status: DataTypes.ENUM(
+        "pending",
+        "accepted",
+        "InProgress",
+        "rejected",
+        "delivered"
+      ),
+      defaultValue: "pending",
     },
     {
       sequelize,

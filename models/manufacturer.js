@@ -25,17 +25,21 @@ module.exports = (sequelize, DataTypes) => {
   }
   Manufacturer.init(
     {
-      firstName: DataTypes.STRING,
-      lastname: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      factoryName: DataTypes.STRING,
-      cnic: DataTypes.STRING,
-      ntn_no: DataTypes.STRING,
+      name: DataTypes.STRING,
+			address: DataTypes.STRING,
+			city: DataTypes.STRING,
+			factory_id: DataTypes.INTEGER,
+			stripeAccountId: DataTypes.STRING,
+			email: DataTypes.STRING,
+			password: DataTypes.STRING,
+			CNIC: DataTypes.STRING,
+			ntn: DataTypes.STRING,
+			isApproved: DataTypes.BOOLEAN,
     },
     {
       sequelize,
       modelName: "Manufacturer",
+      freezeTableName:true
     }
   );
   return Manufacturer;
