@@ -19,12 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "buyer_id",
         as: "buyer",
       });
-      Order.hasOne(models.Product, {
-        foreignKey: "product_id",
-        as: "product",
-        onDelete: "CASCADE",
-        hooks: true,
-      });
     }
   }
   Order.init(
@@ -32,8 +26,6 @@ module.exports = (sequelize, DataTypes) => {
       buyer_id: DataTypes.INTEGER,
       manufacturer_id: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
-      product_id: DataTypes.INTEGER,
-      ask_price: DataTypes.INTEGER,
       details: DataTypes.STRING,
       duration: DataTypes.DATE,
       offer_price: DataTypes.INTEGER,
@@ -44,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         "rejected",
         "delivered"
       ),
-      defaultValue: "pending",
+      // defaultValue: "pending",
     },
     {
       sequelize,

@@ -29,6 +29,7 @@ app.use("/api/manufacturer", require("./routes/manufacturer.route"));
 app.use("/api/product", require("./routes/product.route"));
 app.use("/api/order", require("./routes/order.route"));
 app.use("/api/admin/", require("./routes/admin.route"));
-app.use("api/leftover", require("./routes/leftover.route"));
+app.use("/api/leftover", require("./routes/leftover.route"));
+app.use("/api/request", require("./routes/request.route"));
 
 app.listen(PORT, () => console.log(`Listening to PORT ${PORT}`));
