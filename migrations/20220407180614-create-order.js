@@ -29,15 +29,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      product_id: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Products",
-          key: "id",
-        },
-        onDelete: "CASCADE",
-      },
       ask_price: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -63,6 +54,10 @@ module.exports = {
       offer_price: {
         allowNull: true,
         type: Sequelize.INTEGER,
+      },
+      name:{
+        allowNull:false,
+        type:Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

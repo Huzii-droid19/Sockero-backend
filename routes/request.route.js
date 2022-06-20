@@ -90,6 +90,7 @@ router.put("/respond/:id", async (req, res) => {
       manufacturer_id: manufacturer_id,
       offered_price: offered_price,
       offered_duration: offered_duration,
+     
     });
     return res.status(200).json({ data: user });
   } catch (err) {
@@ -111,33 +112,30 @@ router.post("/create/order", async (req, res) => {
       quantity,
       offered_price,
       offered_duration,
+    asking_price,
     } = req.body;
 
     await models.Offer.destroy({
       where: {
         buyer_id,
-        manufacturer_id,
-        name,
-        quantity,
-        offered_price,
-        offered_duration,
       },
     });
-
+   
     const user = await models.Order.create({
-      buyer_id,
+      buyer_id:buyer_id,
       manufacturer_id,
       name,
       details,
       quantity,
       offer_price: offered_price,
       duration: offered_duration,
+      ask_price:asking_price
     });
     return res.status(200).json({ data: user });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      source: "Manufacturer requests",
+      source: "Create Order",
       message: err.message,
     });
   }

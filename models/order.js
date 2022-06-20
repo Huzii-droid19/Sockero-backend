@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "buyer_id",
         as: "buyer",
       });
+      
     }
   }
   Order.init(
@@ -26,9 +27,9 @@ module.exports = (sequelize, DataTypes) => {
       buyer_id: DataTypes.INTEGER,
       manufacturer_id: DataTypes.INTEGER,
       quantity: DataTypes.INTEGER,
+      ask_price: DataTypes.INTEGER,
       details: DataTypes.STRING,
-      duration: DataTypes.DATE,
-      offer_price: DataTypes.INTEGER,
+      duration: DataTypes.DATE,    
       status: DataTypes.ENUM(
         "pending",
         "accepted",
@@ -36,6 +37,8 @@ module.exports = (sequelize, DataTypes) => {
         "rejected",
         "delivered"
       ),
+      offer_price: DataTypes.INTEGER,
+      name:DataTypes.STRING,
       // defaultValue: "pending",
     },
     {
