@@ -36,6 +36,7 @@ router.post('/addProduct', async (req, res) => {
 		res.status(500).json({ source: 'Error in adding the Product', message: err.message })
 	}
 })
+
 router.get("/", async(req, res) => {
 	try {
 	  const user = await models.Product.findAll();
