@@ -52,7 +52,7 @@ router.post("/create", async (req, res) => {
   try {
     const { buyer_id, name, description, quantity, asking_days, asking_price } =
       req.body;
-    const user = await models.Request.create({
+    const request = await models.Request.create({
       buyer_id: buyer_id,
       name: name,
       description: description,
@@ -60,7 +60,7 @@ router.post("/create", async (req, res) => {
       asking_days: asking_days,
       asking_price: asking_price,
     });
-    return res.status(200).json({ data: user });
+    return res.status(200).json({ message: "Request Posted Successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).json({
@@ -77,8 +77,7 @@ router.put("/respond/:id", async (req, res) => {
         id: req.params.id,
       },
     });
-    console.log(data[0].id);
-    const { manufacturer_id, offered_price, offered_duration } = req.body;
+    const { manufacturer_id, offered_price, duration } = req.body;
     const user = await models.Offer.create({
       request_id: data[0].id,
       buyer_id: data[0].buyer_id,
@@ -89,8 +88,7 @@ router.put("/respond/:id", async (req, res) => {
       asking_price: data[0].asking_price,
       manufacturer_id: manufacturer_id,
       offered_price: offered_price,
-      offered_duration: offered_duration,
-     
+      offered_duration: duration,
     });
     return res.status(200).json({ data: user });
   } catch (err) {
@@ -112,24 +110,26 @@ router.post("/create/order", async (req, res) => {
       quantity,
       offered_price,
       offered_duration,
-    asking_price,
+      asking_price,
+      id,
     } = req.body;
+    console.log(id);
 
     await models.Offer.destroy({
       where: {
-        buyer_id,
+        id: id,
       },
     });
-   
+
     const user = await models.Order.create({
-      buyer_id:buyer_id,
+      buyer_id: buyer_id,
       manufacturer_id,
       name,
       details,
       quantity,
       offer_price: offered_price,
       duration: offered_duration,
-      ask_price:asking_price
+      ask_price: asking_price,
     });
     return res.status(200).json({ data: user });
   } catch (err) {
@@ -148,13 +148,32 @@ router.get("/offers/:id", async (req, res) => {
         buyer_id: req.params.id,
       },
     });
+
     return res.status(200).json({ data: user });
   } catch (err) {
-    console.error(err);
     res.status(500).json({
       source: "Manufacturer requests",
       message: err.message,
     });
   }
 });
+
+router.delete("/offers/:id", async (req, res) => {
+  try {
+    await models.Offer.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return res.status(200).json({
+      message: "Product Deleted",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      source: "Reject Offer from buyer",
+      message: error.message,
+    });
+  }
+});
+
 module.exports = router;
